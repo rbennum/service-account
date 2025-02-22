@@ -1,14 +1,17 @@
 package migrate
 
 import (
-	"github.com/golang-migrate/migrate"
+	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/database/pgx"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/rbennum/service-account/utils/config"
 )
 
 var appConfig = config.GetConfig()
 
 func Migrate() error {
-	migrated, err := migrate.New(appConfig.MigrateFileLocation, appConfig.DBConnectionMigrate)
+	migrated, err := migrate.New(appConfig.MigrateFileLocation, appConfig.DBConnection)
 	if err != nil {
 		return err
 	}

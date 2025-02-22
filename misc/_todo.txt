@@ -10,5 +10,7 @@ x install godotenv
 x create config files
 x go get postgresql driver
 x design relational database
-- prep db migrate system
+x prep db migrate system
+x set middleware for request id and elapsed time
 - prep docker compose to accommodate end-to-end testing (main project + postgresql)
+- handle graceful exit

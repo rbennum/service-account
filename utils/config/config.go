@@ -50,7 +50,7 @@ func getDBConnection() string {
 	dbHost := getEnv("DB_HOST", "localhost")
 	dbPort := getEnv("DB_PORT", "5432")
 	dbName := getEnv("DB_NAME", "postgres")
-	databaseurl := fmt.Sprintf("postgres://%s:%s@%s:%s/%s", dbUser, dbPassword, dbHost, dbPort, dbName)
+	databaseurl := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", dbUser, dbPassword, dbHost, dbPort, dbName)
 	return databaseurl
 }
 
@@ -65,5 +65,5 @@ func getDBConnectionMigrate() string {
 }
 
 func getLocationMigrate() string {
-	return "file://" + getEnv("MIGRATION_FILE_PATH", "src/database/migrations")
+	return "file://" + getEnv("MIGRATION_FILE_PATH", "database/migrate")
 }
