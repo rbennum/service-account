@@ -12,5 +12,16 @@ x go get postgresql driver
 x design relational database
 x prep db migrate system
 x set middleware for request id and elapsed time
+- create daftar endpoint
+  x create model for request body
+  x create model for response body
+  - create daftar handler
+  - create daftar service
+  - create daftar repo
+  - handle status 200 requests
+  - handle status 40x requests
+- create tabung endpoint
+- create tarik endpoint
+- create saldo endpoint
 - prep docker compose to accommodate end-to-end testing (main project + postgresql)
 - handle graceful exit

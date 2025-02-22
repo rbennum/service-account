@@ -7,20 +7,24 @@ import (
 	logger "github.com/rbennum/service-account/utils/log"
 )
 
-func ResponseLogger() echo.MiddlewareFunc {
+func LoggerMiddleware() echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 			requestId := c.Get(KeyRequestID).(string)
 			startTime := c.Get(KeyElapsedTime).(time.Time)
+
+			err := next(c)
+
 			elapsed := time.Since(startTime)
+			status := c.Response().Status
+
 			logger := logger.Logger.Info().
 				Str("request_id", requestId).
 				Str("method", c.Request().Method).
 				Str("path", c.Request().URL.Path).
-				Int("status", c.Response().Status).
+				Int("status", status).
 				Dur("elapsed", elapsed)
 
-			err := next(c)
 			if err != nil {
 				logger.Err(err).Msg("request completed with error")
 			} else {

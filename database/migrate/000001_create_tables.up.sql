@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS users (
     nik VARCHAR(16) PRIMARY KEY,
     name VARCHAR,
-    phone_num VARCHAR(12)
+    phone_num VARCHAR(12) UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS accounts (
