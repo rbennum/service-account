@@ -1,0 +1,31 @@
+services:
+  service-acc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    networks:
+      - app_net
+
+  postgres:
+    image: postgres:16
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: service_acc_db
+    ports:
+      - "5432:5432"
+    networks:
+      - app_net
+
+networks:
+  app_net:
+    name: app_net
+    driver: bridge
