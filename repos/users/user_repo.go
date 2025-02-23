@@ -1,4 +1,4 @@
-package daftar_repo
+package user_repo
 
 import (
 	"context"
@@ -8,17 +8,17 @@ import (
 	e "github.com/rbennum/service-account/models/entity"
 )
 
-type DaftarRepo struct {
+type UserRepo struct {
 	db *pgxpool.Pool
 }
 
-func New(database *pgxpool.Pool) DaftarRepo {
-	return DaftarRepo{
+func New(database *pgxpool.Pool) UserRepo {
+	return UserRepo{
 		db: database,
 	}
 }
 
-func (d DaftarRepo) CreateCustomer(ctx context.Context, entity e.CustomerEntity) error {
+func (d UserRepo) CreateCustomer(ctx context.Context, entity e.CustomerEntity) error {
 	query := `
 		INSERT INTO users(nik, name, phone_num)
 		VALUES($1, $2, $3)
@@ -28,11 +28,10 @@ func (d DaftarRepo) CreateCustomer(ctx context.Context, entity e.CustomerEntity)
 		query,
 		entity.NIK, entity.Name, entity.PhoneNum,
 	)
-	fmt.Printf("%+v\n", err)
 	return err
 }
 
-func (d DaftarRepo) CreateAccount(ctx context.Context, nik string, accountNum string) error {
+func (d UserRepo) CreateAccount(ctx context.Context, nik string, accountNum string) error {
 	query := `
 		INSERT INTO accounts(account_num, nik, balance)
 		VALUES($1, $2, $3)
@@ -42,7 +41,7 @@ func (d DaftarRepo) CreateAccount(ctx context.Context, nik string, accountNum st
 	return err
 }
 
-func (d DaftarRepo) GenerateAccountNumber(ctx context.Context) (string, error) {
+func (d UserRepo) GenerateAccountNumber(ctx context.Context) (string, error) {
 	var accountNumber int64
 	query := `
 		SELECT nextval('account_number_seq')

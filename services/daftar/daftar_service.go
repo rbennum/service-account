@@ -7,16 +7,16 @@ import (
 	"github.com/jackc/pgx/v5/pgconn"
 	mdl "github.com/rbennum/service-account/models/daftar"
 	"github.com/rbennum/service-account/models/entity"
-	rp "github.com/rbennum/service-account/repos/daftar"
+	rp "github.com/rbennum/service-account/repos/users"
 	"github.com/rs/zerolog"
 )
 
 type DaftarService struct {
-	repo   rp.DaftarRepo
+	repo   rp.UserRepo
 	logger zerolog.Logger
 }
 
-func New(repo rp.DaftarRepo, logger zerolog.Logger) DaftarService {
+func New(repo rp.UserRepo, logger zerolog.Logger) DaftarService {
 	return DaftarService{
 		repo:   repo,
 		logger: logger,

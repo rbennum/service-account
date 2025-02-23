@@ -10,7 +10,6 @@ import (
 
 func New() (*pgxpool.Pool, error) {
 	DbString := config.GetConfig().DBConnection
-	fmt.Printf("Database connection string: %s\n", DbString)
 	db, err := pgxpool.New(context.Background(), DbString)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create connection pool: %w", err)

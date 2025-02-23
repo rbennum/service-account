@@ -15,11 +15,11 @@ x set middleware for request id and elapsed time
 - create daftar endpoint
   x create model for request body
   x create model for response body
-  - create daftar handler
-  - create daftar service
-  - create daftar repo
-  - handle status 200 requests
-  - handle status 40x requests
+  x create daftar handler
+  x create daftar service
+  x create daftar repo
+  x handle status 200 requests
+  x handle status 40x requests
 - create tabung endpoint
 - create tarik endpoint
 - create saldo endpoint

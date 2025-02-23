@@ -24,7 +24,7 @@ func New(service svc.DaftarService, logger zerolog.Logger) DaftarHandler {
 func (d *DaftarHandler) PostDaftar(c echo.Context) error {
 	var input dm.RequestBody
 	if err := c.Bind(&input); err != nil {
-		return c.JSON(
+		return echo.NewHTTPError(
 			http.StatusBadRequest,
 			dm.ResponseBody{
 				StatusCode:   http.StatusBadRequest,
