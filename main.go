@@ -9,11 +9,13 @@ import (
 	"github.com/rbennum/service-account/database/postgres"
 	daftar_handler "github.com/rbennum/service-account/handlers/daftar"
 	tabung_handler "github.com/rbennum/service-account/handlers/tabung"
+	tarik_handler "github.com/rbennum/service-account/handlers/tarik"
 	"github.com/rbennum/service-account/middleware"
 	account_repo "github.com/rbennum/service-account/repos/accounts"
 	user_repo "github.com/rbennum/service-account/repos/users"
 	daftar_service "github.com/rbennum/service-account/services/daftar"
 	tabung_service "github.com/rbennum/service-account/services/tabung"
+	tarik_service "github.com/rbennum/service-account/services/tarik"
 	"github.com/rbennum/service-account/utils/config"
 	log "github.com/rbennum/service-account/utils/log"
 	"github.com/rs/zerolog"
@@ -45,6 +47,7 @@ func main() {
 	e.Use(middleware.LoggerMiddleware())
 	setDaftar(e, db, log.Logger)
 	setTabung(e, db, log.Logger)
+	setTarik(e, db, log.Logger)
 	log.Logger.Info().
 		Msg(fmt.Sprintf("listening to port %s", config.Port))
 	e.Start(":" + config.Port)
@@ -62,4 +65,11 @@ func setTabung(e *echo.Echo, db *pgxpool.Pool, logger zerolog.Logger) {
 	svc := tabung_service.New(repo, logger)
 	handler := tabung_handler.New(svc, logger)
 	e.POST("/tabung", handler.DepositBalance)
+}
+
+func setTarik(e *echo.Echo, db *pgxpool.Pool, logger zerolog.Logger) {
+	repo := account_repo.New(db)
+	svc := tarik_service.New(repo, logger)
+	handler := tarik_handler.New(svc, logger)
+	e.POST("/tarik", handler.WithdrawBalance)
 }
