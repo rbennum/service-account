@@ -4,23 +4,23 @@ import (
 	"fmt"
 
 	"github.com/labstack/echo/v4"
-	svc "github.com/rbennum/service-account/services/check"
+	as "github.com/rbennum/service-account/services/accounts"
 	"github.com/rs/zerolog"
 )
 
-type CheckkHandler struct {
-	svc    svc.CheckService
+type CheckHandler struct {
+	svc    as.AccountsService
 	logger zerolog.Logger
 }
 
-func New(svc svc.CheckService, logger zerolog.Logger) CheckkHandler {
-	return CheckkHandler{
+func New(svc as.AccountsService, logger zerolog.Logger) CheckHandler {
+	return CheckHandler{
 		svc:    svc,
 		logger: logger,
 	}
 }
 
-func (t *CheckkHandler) CheckBalance(c echo.Context) error {
+func (t *CheckHandler) CheckBalance(c echo.Context) error {
 	accountNum := c.Param("no_rekening")
 	fmt.Println(accountNum)
 	res, err := t.svc.CheckBalance(

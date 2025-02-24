@@ -14,10 +14,8 @@ import (
 	"github.com/rbennum/service-account/middleware"
 	account_repo "github.com/rbennum/service-account/repos/accounts"
 	user_repo "github.com/rbennum/service-account/repos/users"
-	check_service "github.com/rbennum/service-account/services/check"
+	accounts_service "github.com/rbennum/service-account/services/accounts"
 	daftar_service "github.com/rbennum/service-account/services/daftar"
-	tabung_service "github.com/rbennum/service-account/services/tabung"
-	tarik_service "github.com/rbennum/service-account/services/tarik"
 	"github.com/rbennum/service-account/utils/config"
 	log "github.com/rbennum/service-account/utils/log"
 	"github.com/rs/zerolog"
@@ -65,21 +63,21 @@ func setDaftar(e *echo.Echo, db *pgxpool.Pool, logger zerolog.Logger) {
 
 func setTabung(e *echo.Echo, db *pgxpool.Pool, logger zerolog.Logger) {
 	repo := account_repo.New(db)
-	svc := tabung_service.New(repo, logger)
+	svc := accounts_service.New(repo, logger)
 	handler := tabung_handler.New(svc, logger)
 	e.POST("/tabung", handler.DepositBalance)
 }
 
 func setTarik(e *echo.Echo, db *pgxpool.Pool, logger zerolog.Logger) {
 	repo := account_repo.New(db)
-	svc := tarik_service.New(repo, logger)
+	svc := accounts_service.New(repo, logger)
 	handler := tarik_handler.New(svc, logger)
 	e.POST("/tarik", handler.WithdrawBalance)
 }
 
 func setCheckSaldo(e *echo.Echo, db *pgxpool.Pool, logger zerolog.Logger) {
 	repo := account_repo.New(db)
-	svc := check_service.New(repo, logger)
+	svc := accounts_service.New(repo, logger)
 	handler := check_handler.New(svc, logger)
 	e.GET("/saldo/:no_rekening", handler.CheckBalance)
 }

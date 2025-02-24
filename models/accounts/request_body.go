@@ -1,4 +1,4 @@
-package tabung_model
+package account_model
 
 type RequestBody struct {
 	AccountNumber string `json:"no_rekening"`

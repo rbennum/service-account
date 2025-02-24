@@ -4,17 +4,17 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	tm "github.com/rbennum/service-account/models/tabung"
-	ts "github.com/rbennum/service-account/services/tarik"
+	tm "github.com/rbennum/service-account/models/accounts"
+	as "github.com/rbennum/service-account/services/accounts"
 	"github.com/rs/zerolog"
 )
 
 type TarikHandler struct {
-	svc    ts.TarikService
+	svc    as.AccountsService
 	logger zerolog.Logger
 }
 
-func New(svc ts.TarikService, logger zerolog.Logger) TarikHandler {
+func New(svc as.AccountsService, logger zerolog.Logger) TarikHandler {
 	return TarikHandler{
 		svc:    svc,
 		logger: logger,
