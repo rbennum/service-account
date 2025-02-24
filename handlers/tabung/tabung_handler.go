@@ -4,17 +4,17 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
-	mdl "github.com/rbennum/service-account/models/tabung"
-	svc "github.com/rbennum/service-account/services/tabung"
+	mdl "github.com/rbennum/service-account/models/accounts"
+	as "github.com/rbennum/service-account/services/accounts"
 	"github.com/rs/zerolog"
 )
 
 type TabungHandler struct {
-	svc    svc.TabungService
+	svc    as.AccountsService
 	logger zerolog.Logger
 }
 
-func New(svc svc.TabungService, logger zerolog.Logger) TabungHandler {
+func New(svc as.AccountsService, logger zerolog.Logger) TabungHandler {
 	return TabungHandler{
 		svc:    svc,
 		logger: logger,
